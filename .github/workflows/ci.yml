@@ -2,17 +2,15 @@ name: Blackjack CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Java 21
         uses: actions/setup-java@v4
@@ -21,16 +19,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
+      - name: Build
         run: mvn clean compile
 
-      - name: Run unit tests
+      - name: Test
         run: mvn test
-
-      - name: Generate test report
-        if: always()
-        uses: dorny/test-reporter@v1
-        with:
-          name: JUnit Tests
-          path: target/surefire-reports/*.xml
-          reporter: java-junit
