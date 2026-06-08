@@ -26,4 +26,20 @@ public class Deck {
     public List<Card> getCards() {
         return Collections.unmodifiableList(cards);
     }
+    
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
+
+    /**
+     * Usuwa i zwraca kartę z wierzchu talii.
+     *
+     * @throws IllegalStateException gdy talia jest pusta
+     */
+    public Card draw() {
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("Talia jest pusta — nie można dobrać karty");
+        }
+        return cards.remove(cards.size() - 1);
+    }
 }
