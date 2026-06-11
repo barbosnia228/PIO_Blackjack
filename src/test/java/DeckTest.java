@@ -5,6 +5,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 class DeckTest {
 
     @Test
@@ -60,4 +64,29 @@ class DeckTest {
         assertTrue(deck.isEmpty());
         assertThrows(IllegalStateException.class, deck::draw);
     }
+
+    @Test
+    void shuffleKeepsSameSetOf52Cards() {
+        Deck deck = new Deck();
+        List<Card> before = new ArrayList<>(deck.getCards());
+
+        deck.shuffle(new Random(42));
+        List<Card> after = deck.getCards();
+
+        assertEquals(before.size(), after.size());
+        assertEquals(after.size(), new HashSet<>(after).size());
+        assertEquals(new HashSet<>(before), new HashSet<>(after));
+    }
+
+    @Test
+    void shuffleWithSameSeedIsDeterministic() {
+        Deck a = new Deck();
+        Deck b = new Deck();
+
+        a.shuffle(new Random(123));
+        b.shuffle(new Random(123));
+
+        assertEquals(a.getCards(), b.getCards());
+    }
+
 }

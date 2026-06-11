@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Standardowa talia 52 kart — 4 kolory × 13 figur (spec p. 2.1).
@@ -42,4 +43,16 @@ public class Deck {
         }
         return cards.remove(cards.size() - 1);
     }
+
+    public void shuffle(Random random) 
+    {
+        for (int i = cards.size() - 1; i > 0; i--) 
+        {
+            int j = random.nextInt(i + 1);
+            Card tmp = cards.get(i);
+            cards.set(i, cards.get(j));
+            cards.set(j, tmp);
+        }
+    }
+
 }
