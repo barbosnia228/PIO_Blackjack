@@ -35,4 +35,8 @@ public class Hand {
         return sum;
     }
 
+    public boolean isBust() {
+        return getValue() > 21;
+    }
+
 }
