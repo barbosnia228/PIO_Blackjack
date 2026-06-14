@@ -55,5 +55,30 @@ class HandTest {
         assertEquals(12, hand.getValue());
     }
 
+    @Test
+    void handOver21IsBust() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Rank.KING, Suit.SPADES));
+        hand.addCard(new Card(Rank.QUEEN, Suit.HEARTS));
+        hand.addCard(new Card(Rank.FIVE, Suit.CLUBS));
+        assertTrue(hand.isBust());
+    }
+
+    @Test
+    void handOf21IsNotBust() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Rank.KING, Suit.SPADES));
+        hand.addCard(new Card(Rank.ACE, Suit.HEARTS));
+        assertFalse(hand.isBust());
+    }
+
+    @Test
+    void handUnder21IsNotBust() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Rank.TEN, Suit.SPADES));
+        hand.addCard(new Card(Rank.SEVEN, Suit.HEARTS));
+        assertFalse(hand.isBust());
+    }
+
 }
 
