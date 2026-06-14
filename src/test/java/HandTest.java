@@ -29,4 +29,31 @@ class HandTest {
     void addingNullCardThrows() {
         assertThrows(NullPointerException.class, () -> new Hand().addCard(null));
     }
+
+    @Test
+    void aceCountsAsElevenWhenItFits() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Rank.ACE, Suit.SPADES));
+        hand.addCard(new Card(Rank.NINE, Suit.HEARTS));
+        assertEquals(20, hand.getValue());
+    }
+
+    @Test
+    void aceDropsToOneToAvoidBust() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Rank.ACE, Suit.SPADES));
+        hand.addCard(new Card(Rank.NINE, Suit.HEARTS));
+        hand.addCard(new Card(Rank.FIVE, Suit.CLUBS));
+        assertEquals(15, hand.getValue());
+    }
+
+    @Test
+    void twoAcesCountAsTwelve() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Rank.ACE, Suit.SPADES));
+        hand.addCard(new Card(Rank.ACE, Suit.HEARTS));
+        assertEquals(12, hand.getValue());
+    }
+
 }
+
